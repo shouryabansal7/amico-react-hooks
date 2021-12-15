@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Loader, Navbar } from './';
 import { getPosts } from '../api';
-import { Home } from '../pages';
+import { Home, Login } from '../pages';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const Page404 = () => {
@@ -43,6 +43,7 @@ function App() {
               </React.Fragment>
             }
           />
+          <Route exact path="/login" element={<Login />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Router>
