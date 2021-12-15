@@ -1,31 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Loader, Navbar } from './';
-import { getPosts } from '../api';
 import { Home, Login } from '../pages';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useAuth } from '../hooks';
 
 const Page404 = () => {
   return <h1>404</h1>;
 };
 
 function App() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await getPosts();
-      console.log('response', response);
-      if (response.success) {
-        setPosts(response.data.posts);
-      }
+  const auth = useAuth();
 
-      setLoading(false);
-    };
-
-    fetchPosts();
-  }, []);
-
-  if (loading) {
+  if (auth.loading) {
     return <Loader />;
   }
 
@@ -39,7 +25,7 @@ function App() {
             path="/"
             element={
               <React.Fragment>
-                <Home posts={posts} />
+                <Home />
               </React.Fragment>
             }
           />

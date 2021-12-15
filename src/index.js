@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ToastProvider } from 'react-toast-notifications';
 import './styles/index.css';
 import { App } from './components';
-import { ToastProvider } from 'react-toast-notifications';
 import { AuthProvider } from './providers/AuthProvider';
 
 ReactDOM.render(
