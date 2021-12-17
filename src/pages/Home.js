@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import styles from '../styles/home.module.css';
-import { Comment, Loader, FriendsList } from '../components';
+import { Comment, Loader, FriendsList, CreatePost } from '../components';
 import { getPosts } from '../api';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -31,6 +31,7 @@ const Home = () => {
   return (
     <div className={styles.home}>
       <div className={styles.postsList}>
+        <CreatePost />
         {posts.map((post) => (
           <div className={styles.postWrapper} key={`post-${post._id}`}>
             <div className={styles.postHeader}>
@@ -60,7 +61,7 @@ const Home = () => {
                     src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
                     alt="likes-icon"
                   />
-                  <span>5</span>
+                  <span>{post.likes.length}</span>
                 </div>
 
                 <div className={styles.postCommentsIcon}>
