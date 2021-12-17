@@ -3,10 +3,11 @@ import { useContext, useEffect, useState } from 'react';
 import {
   editProfile,
   fetchUserFriends,
+  getPosts,
   login as userLogin,
   register,
 } from '../api';
-import { AuthContext } from '../providers/AuthProvider';
+import { AuthContext, PostsContext } from '../providers';
 import {
   getItemFromLocalStorage,
   LOCALSTORAGE_TOKEN_KEY,
@@ -138,5 +139,36 @@ export const useProvideAuth = () => {
     signup,
     updateUser,
     updateUserFriends,
+  };
+};
+
+export const usePosts = () => {
+  return useContext(PostsContext);
+};
+
+export const useProvidePosts = () => {
+  const [posts, setPosts] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await getPosts();
+
+      if (response.success) {
+        setPosts(response.data.posts);
+      }
+
+      setLoading(false);
+    };
+
+    fetchPosts();
+  }, []);
+
+  const addPostToState = () => {};
+
+  return {
+    data: posts,
+    loading,
+    addPostToState,
   };
 };

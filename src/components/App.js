@@ -9,9 +9,9 @@ import {
 } from 'react-router-dom';
 import { useAuth } from '../hooks';
 
-function PrivateRoute({ Component, ...rest }) {
+function PrivateRoute({ children }) {
   const auth = useAuth();
-  return auth.user ? <Component {...rest} /> : <Navigate to="/login" />;
+  return auth.user ? children : <Navigate to="/login" />;
 }
 
 const Page404 = () => {
@@ -53,7 +53,11 @@ function App() {
           <Route
             exact
             path="/user/:userId"
-            element={<PrivateRoute Component={UserProfile} />}
+            element={
+              <PrivateRoute>
+                <UserProfile />
+              </PrivateRoute>
+            }
           />
           <Route path="*" element={<Page404 />} />
         </Routes>
